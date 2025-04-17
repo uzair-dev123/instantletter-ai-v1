@@ -5,36 +5,103 @@ import { saveAs } from 'file-saver';
 import { jsPDF } from 'jspdf';
 import { Document, Packer, Paragraph, TextRun } from 'docx';
 
+const fieldMap = {
+  "Admission Request / Letter of Intent": ["Your Name", "University Name", "Program Name", "Motivation Statement"],
+  "Job Application": ["Your Name", "Company Name", "Job Title", "Brief Skills Summary"],
+  "Visa Cover Letter": ["Applicant Name", "Destination Country", "Purpose of Visit", "Travel Dates"],
+  "Hostile Student Warning Letter": ["Student Name", "Issue Description", "Incident Date", "Requested Action"],
+  "Resignation Letter": ["Your Name", "Company Name", "Position", "Last Working Day"],
+  "Invitation Letter": ["Guest Name", "Event/Purpose", "Location", "Date/Time"],
+};
+
 export default function App() {
-  const [name, setName] = useState('');
-  const [to, setTo] = useState('');
-  const [type, setType] = useState('Sick Leave');
-  const [detail, setDetail] = useState('');
-  const [tone, setTone] = useState('Formal');
+  const categories = {
+    Education: [
+      "Admission Request / Letter of Intent",
+      "Recommendation Request",
+      "Transcript Request",
+      "Fee Waiver / Financial Aid Request",
+      "Internship / Apprenticeship Request",
+      "Leave of Absence from School",
+      "Transfer Request",
+      "Hostile Student Warning Letter",
+      "Disciplinary Action Notice",
+      "Appeal Against Disciplinary Action",
+      "Request for Counseling Support"
+    ],
+    "Job & Employment": [
+      "Job Application",
+      "Resignation Letter",
+      "Reference Letter Request",
+      "Experience Certificate Request",
+      "Salary Certificate",
+      "Promotion Request",
+      "Remote Work Request",
+      "Absence / Apology Letter"
+    ],
+    "Immigration & Visa": [
+      "Invitation Letter for Visa",
+      "Sponsorship Letter",
+      "Visa Cover Letter",
+      "Affidavit of Support",
+      "Proof of Accommodation",
+      "Travel Itinerary Letter",
+      "Visa Extension Request"
+    ],
+    "Business & Corporate": [
+      "Client Proposal Letter",
+      "Vendor Introduction Letter",
+      "Meeting Request",
+      "Quotation Request",
+      "Price Negotiation Letter",
+      "Payment Reminder",
+      "Business Apology",
+      "Request for Collaboration"
+    ],
+    "Complaint & Dispute": [
+      "Bank Complaint",
+      "Product Return / Refund",
+      "Utility Company Complaint",
+      "Insurance Claim",
+      "Government Service Complaint",
+      "Landlord/Tenant Dispute",
+      "Customer Service Escalation"
+    ],
+    "Legal & Official": [
+      "Cease and Desist Letter",
+      "Authorization Letter",
+      "Power of Attorney (Simple)",
+      "Breach of Contract Notice",
+      "Legal Info Request",
+      "Witness Statement Request"
+    ],
+    "Personal & Social": [
+      "Thank You Letter",
+      "Apology Letter",
+      "Invitation Letter",
+      "Congratulations",
+      "Condolences",
+      "Neighbor Complaint",
+      "Donation Request"
+    ]
+  };
+
+  const tones = ["Formal", "Friendly", "Apologetic", "Grateful", "Assertive"];
+
+  const [selectedCategory, setSelectedCategory] = useState(Object.keys(categories)[0]);
+  const [selectedSubtype, setSelectedSubtype] = useState(categories[Object.keys(categories)[0]][0]);
+  const [tone, setTone] = useState("Formal");
+  const [inputs, setInputs] = useState({});
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const categories = [
-    'Leave Letters',
-    'Job Letters',
-    'School Letters',
-    'Visa Letters',
-    'Complaint Letters'
-  ];
-
-  const subtypes = {
-    'Leave Letters': ['Sick Leave', 'Casual Leave', 'Maternity Leave'],
-    'Job Letters': ['Job Application', 'Resignation', 'Experience Request'],
-    'School Letters': ['Fee Concession', 'TC Request', 'Result Inquiry'],
-    'Visa Letters': ['Cover Letter', 'Sponsor Letter'],
-    'Complaint Letters': ['Product Complaint', 'Service Issue']
+  const handleInputChange = (label, value) => {
+    setInputs(prev => ({ ...prev, [label]: value }));
   };
-
-  const [selectedCategory, setSelectedCategory] = useState('Leave Letters');
-  const [selectedSubtype, setSelectedSubtype] = useState('Sick Leave');
 
   const generateLetter = async () => {
     setLoading(true);
+    const context = Object.entries(inputs).map(([k, v]) => `${k}: ${v}`).join(', ');
     try {
       const res = await fetch('/api/generate-letter', {
         method: 'POST',
@@ -43,7 +110,7 @@ export default function App() {
           messages: [
             {
               role: 'user',
-              content: `Write a ${tone.toLowerCase()} ${selectedSubtype} letter from ${name} to ${to}. Context: ${detail}`,
+              content: `Write a ${tone.toLowerCase()} ${selectedSubtype} letter. Details: ${context}`,
             },
           ],
         }),
@@ -80,44 +147,53 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-sky-100 to-indigo-200 p-8">
-      <div className="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-2xl">
-        <h1 className="text-3xl font-bold text-center text-blue-800 mb-8">📄 InstantLetter.ai</h1>
+    <div className="min-h-screen bg-gradient-to-br from-sky-100 to-indigo-200 p-6">
+      <div className="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-2xl">
+        <h1 className="text-3xl font-bold text-center mb-6 text-blue-800">📄 InstantLetter.ai</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
           <select className="border p-2" value={selectedCategory} onChange={(e) => {
-            setSelectedCategory(e.target.value);
-            setSelectedSubtype(subtypes[e.target.value][0]);
+            const category = e.target.value;
+            setSelectedCategory(category);
+            setSelectedSubtype(categories[category][0]);
+            setInputs({});
           }}>
-            {categories.map((cat) => (
+            {Object.keys(categories).map(cat => (
               <option key={cat}>{cat}</option>
             ))}
           </select>
 
-          <select className="border p-2" value={selectedSubtype} onChange={(e) => setSelectedSubtype(e.target.value)}>
-            {subtypes[selectedCategory].map((sub) => (
+          <select className="border p-2" value={selectedSubtype} onChange={(e) => {
+            setSelectedSubtype(e.target.value);
+            setInputs({});
+          }}>
+            {categories[selectedCategory].map(sub => (
               <option key={sub}>{sub}</option>
             ))}
           </select>
+        </div>
 
-          <input className="border p-2 col-span-2" placeholder="Your Name" value={name} onChange={(e) => setName(e.target.value)} />
-          <input className="border p-2 col-span-2" placeholder="Recipient Name" value={to} onChange={(e) => setTo(e.target.value)} />
-          <textarea className="border p-2 col-span-2" placeholder="Details..." rows="4" value={detail} onChange={(e) => setDetail(e.target.value)} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          {fieldMap[selectedSubtype]?.map((field) => (
+            <input
+              key={field}
+              className="border p-2"
+              placeholder={field}
+              value={inputs[field] || ''}
+              onChange={(e) => handleInputChange(field, e.target.value)}
+            />
+          ))}
           <select className="border p-2 col-span-2" value={tone} onChange={(e) => setTone(e.target.value)}>
-            <option>Formal</option>
-            <option>Friendly</option>
-            <option>Apologetic</option>
-            <option>Grateful</option>
-            <option>Assertive</option>
+            {tones.map(t => <option key={t}>{t}</option>)}
           </select>
         </div>
 
-        <button className="mt-6 w-full bg-blue-700 hover:bg-blue-800 text-white py-2 rounded-lg text-lg font-semibold" onClick={generateLetter} disabled={loading}>
+        <button className="w-full bg-blue-700 hover:bg-blue-800 text-white py-2 rounded-lg text-lg font-semibold" onClick={generateLetter} disabled={loading}>
           {loading ? 'Generating...' : 'Generate Letter'}
         </button>
 
         {output && (
-          <div className="mt-6 p-4 bg-white border border-blue-300 rounded-lg shadow-md">
+          <div className="mt-6 bg-gray-50 border border-blue-300 rounded p-4">
             <textarea
               className="w-full border-none resize-none outline-none text-sm text-gray-700 whitespace-pre-wrap min-h-[300px]"
               value={output}
