@@ -6,25 +6,44 @@ import './index.css';
 
 export default function App() {
   const categories = {
-    Education: ['Admission Letter', 'Recommendation Letter', 'Hostile Student Letter'],
-    Employment: ['Job Application', 'Resignation Letter', 'Experience Certificate'],
-    Visa: ['Sponsor Letter', 'Visa Explanation Letter'],
-    Legal: ['Authorization Letter', 'Affidavit'],
-    Banking: ['Loan Application', 'Bank Statement Request']
+    Education: {
+      subtypes: ['Admission Letter', 'Recommendation Letter', 'Hostile Student Letter'],
+      fields: ['Student Name', 'Institution Name', 'Purpose']
+    },
+    Employment: {
+      subtypes: ['Job Application', 'Resignation Letter', 'Experience Certificate'],
+      fields: ['Employee Name', 'Company Name', 'Position']
+    },
+    Visa: {
+      subtypes: ['Sponsor Letter', 'Visa Explanation Letter'],
+      fields: ['Applicant Name', 'Country', 'Visa Type']
+    },
+    Legal: {
+      subtypes: ['Authorization Letter', 'Affidavit'],
+      fields: ['Name', 'Legal Purpose']
+    },
+    Banking: {
+      subtypes: ['Loan Application', 'Bank Statement Request'],
+      fields: ['Account Holder Name', 'Bank Name', 'Reason']
+    }
   };
 
   const [selectedCategory, setSelectedCategory] = useState('Education');
-  const [selectedSubtype, setSelectedSubtype] = useState(categories['Education'][0]);
-  const [name, setName] = useState('');
-  const [to, setTo] = useState('');
-  const [detail, setDetail] = useState('');
+  const [selectedSubtype, setSelectedSubtype] = useState(categories['Education'].subtypes[0]);
   const [tone, setTone] = useState('Formal');
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const [fieldData, setFieldData] = useState({});
+
+  const handleFieldChange = (field, value) => {
+    setFieldData(prev => ({ ...prev, [field]: value }));
+  };
+
   const generateLetter = async () => {
     setLoading(true);
     try {
+      const context = Object.entries(fieldData).map(([k, v]) => `${k}: ${v}`).join(', ');
       const res = await fetch('/api/generate-letter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -32,7 +51,7 @@ export default function App() {
           messages: [
             {
               role: 'user',
-              content: `Write a ${tone.toLowerCase()} ${selectedSubtype} letter from ${name} to ${to}. Context: ${detail}`,
+              content: `Write a ${tone.toLowerCase()} ${selectedSubtype} under ${selectedCategory} category. Details: ${context}`,
             },
           ],
         }),
@@ -64,6 +83,9 @@ export default function App() {
     saveAs(blob, `${selectedSubtype.replace(/\s+/g, '_')}_letter.docx`);
   };
 
+  const subtypes = categories[selectedCategory].subtypes;
+  const fields = categories[selectedCategory].fields;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-100 to-indigo-200 p-6">
       <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg">
@@ -71,8 +93,10 @@ export default function App() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <select className="border p-2" value={selectedCategory} onChange={(e) => {
-            setSelectedCategory(e.target.value);
-            setSelectedSubtype(categories[e.target.value][0]);
+            const cat = e.target.value;
+            setSelectedCategory(cat);
+            setSelectedSubtype(categories[cat].subtypes[0]);
+            setFieldData({});
           }}>
             {Object.keys(categories).map((cat) => (
               <option key={cat}>{cat}</option>
@@ -80,14 +104,21 @@ export default function App() {
           </select>
 
           <select className="border p-2" value={selectedSubtype} onChange={(e) => setSelectedSubtype(e.target.value)}>
-            {categories[selectedCategory].map((sub) => (
+            {subtypes.map((sub) => (
               <option key={sub}>{sub}</option>
             ))}
           </select>
 
-          <input className="border p-2 col-span-2" placeholder="Your Name" value={name} onChange={(e) => setName(e.target.value)} />
-          <input className="border p-2 col-span-2" placeholder="Recipient Name" value={to} onChange={(e) => setTo(e.target.value)} />
-          <textarea className="border p-2 col-span-2" placeholder="Letter Details..." rows="4" value={detail} onChange={(e) => setDetail(e.target.value)} />
+          {fields.map((field) => (
+            <input
+              key={field}
+              className="border p-2 col-span-2"
+              placeholder={field}
+              value={fieldData[field] || ''}
+              onChange={(e) => handleFieldChange(field, e.target.value)}
+            />
+          ))}
+
           <select className="border p-2 col-span-2" value={tone} onChange={(e) => setTone(e.target.value)}>
             <option>Formal</option>
             <option>Friendly</option>
