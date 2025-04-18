@@ -1,0 +1,190 @@
+{
+  "Education": {
+    "Admission Letter": {
+      "fields": {
+        "Student Name": "",
+        "Program Name": "",
+        "Institution Name": "",
+        "Intake Date": "",
+        "Purpose": "To pursue higher studies in the mentioned field.",
+        "Student Address": "",
+        "Contact Info": "You can contact me for further details."
+      }
+    },
+    "Recommendation Letter": {
+      "fields": {
+        "Recommender Name": "",
+        "Recommender Position": "",
+        "Applicant Name": "",
+        "Relationship": "",
+        "Achievements": "",
+        "Target Institution": ""
+      }
+    },
+    "Transcript Request": {
+      "fields": {
+        "Student Name": "",
+        "Roll Number": "",
+        "Graduation Year": "",
+        "Mailing Address": "",
+        "Reason for Request": "For academic and professional purposes."
+      }
+    },
+    "Transfer Certificate Request": {
+      "fields": {
+        "Student Name": "",
+        "Grade/Class": "",
+        "Reason for Transfer": "",
+        "New School Name": "",
+        "Required Date": ""
+      }
+    }
+  },
+  "Employment": {
+    "Job Application": {
+      "fields": {
+        "Applicant Name": "",
+        "Position": "",
+        "Company Name": "",
+        "Cover Letter Summary": "",
+        "LinkedIn URL": "",
+        "Contact Info": ""
+      }
+    },
+    "Resignation Letter": {
+      "fields": {
+        "Employee Name": "",
+        "Position": "",
+        "Last Working Day": "",
+        "Reason": "",
+        "Manager Name": ""
+      }
+    },
+    "Experience Certificate Request": {
+      "fields": {
+        "Employee Name": "",
+        "Job Title": "",
+        "Duration": "",
+        "Supervisor Name": "",
+        "HR Contact": "To whom it may concern at the Human Resources Department"
+      }
+    },
+    "Reference Letter": {
+      "fields": {
+        "Referrer Name": "",
+        "Relationship": "",
+        "Employee Name": "",
+        "Duration Worked Together": "We have worked together for several years.",
+        "Skills Endorsed": ""
+      }
+    }
+  },
+  "Visa & Immigration": {
+    "Sponsor Letter": {
+      "fields": {
+        "Sponsor Name": "",
+        "Applicant Name": "",
+        "Relationship": "",
+        "Visa Type": "",
+        "Country": "",
+        "Support Duration": "",
+        "Address": "",
+        "Contact Info": ""
+      }
+    },
+    "Visa Explanation Letter": {
+      "fields": {
+        "Applicant Name": "",
+        "Visa Type": "",
+        "Reason for Visit": "",
+        "Travel Dates": "",
+        "Supporting Documents": ""
+      }
+    },
+    "Cover Letter for Visa": {
+      "fields": {
+        "Applicant Name": "",
+        "Passport Number": "",
+        "Purpose of Travel": "",
+        "Destination Country": "",
+        "Trip Plan Summary": ""
+      }
+    },
+    "Invitation Letter": {
+      "fields": {
+        "Host Name": "",
+        "Visitor Name": "",
+        "Dates of Visit": "",
+        "Relationship": "",
+        "Host Address": ""
+      }
+    }
+  },
+  "Banking & Finance": {
+    "Bank Statement Request": {
+      "fields": {
+        "Account Holder Name": "",
+        "Bank Name": "",
+        "Account Number": "",
+        "Duration Required": "",
+        "Reason": ""
+      }
+    },
+    "Loan Application": {
+      "fields": {
+        "Applicant Name": "",
+        "Loan Amount": "",
+        "Purpose": "",
+        "Income Info": "",
+        "Repayment Plan": "",
+        "Bank Name": ""
+      }
+    },
+    "Import LC Request": {
+      "fields": {
+        "Company Name": "",
+        "Importer Name": "",
+        "Amount": "",
+        "Bank Name": "",
+        "Product Description": "",
+        "Shipment Date": ""
+      }
+    },
+    "Export Performance Letter": {
+      "fields": {
+        "Exporter Name": "",
+        "Products Exported": "",
+        "Countries Dealt With": "",
+        "Export Volume": "",
+        "Duration": ""
+      }
+    }
+  },
+  "Personal & Miscellaneous": {
+    "Apology Letter": {
+      "fields": {
+        "Sender Name": "",
+        "Recipient Name": "",
+        "Reason for Apology": "",
+        "Incident Date": "",
+        "Regret Statement": ""
+      }
+    },
+    "Gratitude Letter": {
+      "fields": {
+        "Sender Name": "",
+        "Recipient Name": "",
+        "Occasion/Event": "",
+        "Specific Help Received": ""
+      }
+    },
+    "Leave of Absence": {
+      "fields": {
+        "Applicant Name": "",
+        "Organization/School Name": "",
+        "Leave Dates": "",
+        "Reason": ""
+      }
+    }
+  }
+}
