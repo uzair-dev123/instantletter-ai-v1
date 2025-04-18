@@ -1,65 +1,67 @@
-// File: src/App.jsx
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { saveAs } from 'file-saver';
 import { jsPDF } from 'jspdf';
 import { Document, Packer, Paragraph, TextRun } from 'docx';
-import letterTemplates from './data/letterTemplates.json';
 
 export default function App() {
-  const [category, setCategory] = useState('');
-  const [subtype, setSubtype] = useState('');
-  const [fields, setFields] = useState({});
-  const [formData, setFormData] = useState({});
+  const [category, setCategory] = useState('Education');
+  const [subtype, setSubtype] = useState('Admission Letter');
+  const [name, setName] = useState('');
+  const [to, setTo] = useState('');
+  const [detail, setDetail] = useState('');
   const [tone, setTone] = useState('Formal');
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [title, setTitle] = useState('');
+  const [institutionName, setInstitutionName] = useState('');
+  const [institutionAddress, setInstitutionAddress] = useState('');
+  const [cityStateZip, setCityStateZip] = useState('');
 
-  useEffect(() => {
-    const defaultCategory = Object.keys(letterTemplates)[0];
-    const defaultSubtype = Object.keys(letterTemplates[defaultCategory])[0];
-    setCategory(defaultCategory);
-    setSubtype(defaultSubtype);
-    setFields(letterTemplates[defaultCategory][defaultSubtype].fields);
-    setFormData({});
-  }, []);
-
-  const handleCategoryChange = (newCategory) => {
-    const firstSubtype = Object.keys(letterTemplates[newCategory])[0];
-    setCategory(newCategory);
-    setSubtype(firstSubtype);
-    setFields(letterTemplates[newCategory][firstSubtype].fields);
-    setFormData({});
+  const categories = {
+    Education: ['Admission Letter', 'Transcript Request'],
+    Employment: ['Experience Letter Request'],
   };
 
-  const handleSubtypeChange = (newSubtype) => {
-    setSubtype(newSubtype);
-    setFields(letterTemplates[category][newSubtype].fields);
-    setFormData({});
-  };
-
-  const buildPrompt = () => {
-    const entries = Object.entries(fields).map(([key, fallback]) => {
-      const value = formData[key] || fallback || '';
-      return `${key}: ${value}`;
+  const replacePlaceholders = (template, inputs) => {
+    return template.replace(/\[(.*?)\]/g, (_, key) => {
+      const normalizedKey = key.trim().toLowerCase().replace(/\s+/g, '');
+      return inputs[normalizedKey] || `[${key}]`;
     });
-
-    return `Write a ${tone.toLowerCase()} ${subtype} under the ${category} category. Use this information:\n\n${entries.join('\n')}\n\nPlease write a professional letter without using placeholders.`;
   };
 
   const generateLetter = async () => {
     setLoading(true);
-    const prompt = buildPrompt();
     try {
       const res = await fetch('/api/generate-letter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          messages: [{ role: 'user', content: prompt }]
-        })
+          messages: [
+            {
+              role: 'user',
+              content: `Write a ${tone.toLowerCase()} ${subtype} letter from ${name} to ${to}. Context: ${detail}`,
+            },
+          ],
+        }),
       });
       const data = await res.json();
-      setOutput(data?.reply ?? 'No response received');
+      const inputs = {
+        yourname: name,
+        recipientname: to,
+        details: detail,
+        tone: tone,
+        phone: phone,
+        email: email,
+        institutionname: institutionName,
+        institutionaddress: institutionAddress,
+        citystatezip: cityStateZip,
+        title: title,
+      };
+      const replaced = replacePlaceholders(data?.reply ?? '', inputs);
+      setOutput(replaced);
     } catch (err) {
       setOutput('Error generating letter.');
     }
@@ -85,43 +87,43 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-sky-100 to-indigo-200 p-6">
-      <div className="max-w-3xl mx-auto bg-white p-6 rounded-xl shadow-xl">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 p-6">
+      <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg">
         <h1 className="text-3xl font-bold text-center text-blue-800 mb-6">📄 InstantLetter.ai</h1>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          <select className="border p-2" value={category} onChange={(e) => handleCategoryChange(e.target.value)}>
-            {Object.keys(letterTemplates).map((cat) => <option key={cat}>{cat}</option>)}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <select className="border p-2" value={category} onChange={(e) => {
+            setCategory(e.target.value);
+            setSubtype(categories[e.target.value][0]);
+          }}>
+            {Object.keys(categories).map((cat) => (
+              <option key={cat}>{cat}</option>
+            ))}
           </select>
-          <select className="border p-2" value={subtype} onChange={(e) => handleSubtypeChange(e.target.value)}>
-            {Object.keys(letterTemplates[category] || {}).map((sub) => <option key={sub}>{sub}</option>)}
+          <select className="border p-2" value={subtype} onChange={(e) => setSubtype(e.target.value)}>
+            {categories[category].map((sub) => (
+              <option key={sub}>{sub}</option>
+            ))}
+          </select>
+          <input className="border p-2 col-span-2" placeholder="Your Name" value={name} onChange={(e) => setName(e.target.value)} />
+          <input className="border p-2 col-span-2" placeholder="Recipient Name" value={to} onChange={(e) => setTo(e.target.value)} />
+          <textarea className="border p-2 col-span-2" placeholder="Letter Details..." rows="3" value={detail} onChange={(e) => setDetail(e.target.value)} />
+          <input className="border p-2 col-span-2" placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
+          <input className="border p-2 col-span-2" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input className="border p-2 col-span-2" placeholder="Your Title" value={title} onChange={(e) => setTitle(e.target.value)} />
+          <input className="border p-2 col-span-2" placeholder="Institution Name" value={institutionName} onChange={(e) => setInstitutionName(e.target.value)} />
+          <input className="border p-2 col-span-2" placeholder="Institution Address" value={institutionAddress} onChange={(e) => setInstitutionAddress(e.target.value)} />
+          <input className="border p-2 col-span-2" placeholder="City, State, ZIP Code" value={cityStateZip} onChange={(e) => setCityStateZip(e.target.value)} />
+          <select className="border p-2 col-span-2" value={tone} onChange={(e) => setTone(e.target.value)}>
+            <option>Formal</option>
+            <option>Friendly</option>
+            <option>Apologetic</option>
+            <option>Grateful</option>
+            <option>Assertive</option>
           </select>
         </div>
-
-        <div className="grid grid-cols-1 gap-3 mb-4">
-          {Object.keys(fields).map((field) => (
-            <input
-              key={field}
-              className="border p-2 rounded"
-              placeholder={field}
-              value={formData[field] || ''}
-              onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
-            />
-          ))}
-        </div>
-
-        <select className="border p-2 mb-4 w-full" value={tone} onChange={(e) => setTone(e.target.value)}>
-          <option>Formal</option>
-          <option>Friendly</option>
-          <option>Apologetic</option>
-          <option>Grateful</option>
-          <option>Assertive</option>
-        </select>
-
-        <button className="w-full bg-blue-700 hover:bg-blue-800 text-white py-2 rounded text-lg font-semibold" onClick={generateLetter} disabled={loading}>
+        <button className="mt-6 w-full bg-blue-700 hover:bg-blue-800 text-white py-2 rounded text-lg font-semibold" onClick={generateLetter} disabled={loading}>
           {loading ? 'Generating...' : 'Generate Letter'}
         </button>
-
         {output && (
           <div className="mt-6 bg-gray-50 p-4 border rounded shadow">
             <textarea className="w-full border-none text-sm text-gray-800 resize-none min-h-[300px]" value={output} onChange={(e) => setOutput(e.target.value)} />
