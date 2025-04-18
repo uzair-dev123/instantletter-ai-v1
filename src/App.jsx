@@ -1,62 +1,62 @@
-
 // File: src/App.jsx
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { saveAs } from 'file-saver';
 import { jsPDF } from 'jspdf';
 import { Document, Packer, Paragraph, TextRun } from 'docx';
-import './index.css';
+import letterTemplates from './data/letterTemplates.json';
 
 export default function App() {
-  const categories = {
-    Education: {
-      subtypes: ['Admission Letter', 'Recommendation Letter', 'Hostile Student Letter'],
-      fields: ['Student Name', 'Institution Name', 'Purpose of Letter']
-    },
-    Employment: {
-      subtypes: ['Job Application', 'Resignation Letter', 'Experience Certificate'],
-      fields: ['Employee Name', 'Company Name', 'Job Title']
-    },
-    Visa: {
-      subtypes: ['Sponsor Letter', 'Visa Explanation Letter'],
-      fields: ['Applicant Name', 'Embassy/Consulate', 'Visa Type']
-    },
-    Legal: {
-      subtypes: ['Authorization Letter', 'Affidavit'],
-      fields: ['Your Name', 'Recipient Name', 'Legal Reason']
-    },
-    Banking: {
-      subtypes: ['Loan Application', 'Bank Statement Request'],
-      fields: ['Account Holder Name', 'Bank Name', 'Request Purpose']
-    }
-  };
-
-  const [category, setCategory] = useState('Education');
-  const [letterType, setLetterType] = useState(categories['Education'].subtypes[0]);
-  const [tone, setTone] = useState('Formal');
+  const [category, setCategory] = useState('');
+  const [subtype, setSubtype] = useState('');
   const [fields, setFields] = useState({});
+  const [formData, setFormData] = useState({});
+  const [tone, setTone] = useState('Formal');
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleFieldChange = (label, value) => {
-    setFields(prev => ({ ...prev, [label]: value }));
+  useEffect(() => {
+    const defaultCategory = Object.keys(letterTemplates)[0];
+    const defaultSubtype = Object.keys(letterTemplates[defaultCategory])[0];
+    setCategory(defaultCategory);
+    setSubtype(defaultSubtype);
+    setFields(letterTemplates[defaultCategory][defaultSubtype].fields);
+    setFormData({});
+  }, []);
+
+  const handleCategoryChange = (newCategory) => {
+    const firstSubtype = Object.keys(letterTemplates[newCategory])[0];
+    setCategory(newCategory);
+    setSubtype(firstSubtype);
+    setFields(letterTemplates[newCategory][firstSubtype].fields);
+    setFormData({});
+  };
+
+  const handleSubtypeChange = (newSubtype) => {
+    setSubtype(newSubtype);
+    setFields(letterTemplates[category][newSubtype].fields);
+    setFormData({});
+  };
+
+  const buildPrompt = () => {
+    const entries = Object.entries(fields).map(([key, fallback]) => {
+      const value = formData[key] || fallback || '';
+      return `${key}: ${value}`;
+    });
+
+    return `Write a ${tone.toLowerCase()} ${subtype} under the ${category} category. Use this information:\n\n${entries.join('\n')}\n\nPlease write a professional letter without using placeholders.`;
   };
 
   const generateLetter = async () => {
     setLoading(true);
-    const context = Object.entries(fields).map(([k, v]) => `${k}: ${v}`).join(', ');
+    const prompt = buildPrompt();
     try {
       const res = await fetch('/api/generate-letter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          messages: [
-            {
-              role: 'user',
-              content: `Write a ${tone.toLowerCase()} ${letterType} in the ${category} category. Context: ${context}`,
-            },
-          ],
-        }),
+          messages: [{ role: 'user', content: prompt }]
+        })
       });
       const data = await res.json();
       setOutput(data?.reply ?? 'No response received');
@@ -69,7 +69,7 @@ export default function App() {
   const downloadAsPDF = () => {
     const doc = new jsPDF();
     doc.text(output, 10, 10);
-    doc.save(`${letterType.replace(/\s+/g, '_')}_letter.pdf`);
+    doc.save(`${subtype.replace(/\s+/g, '_')}_letter.pdf`);
   };
 
   const downloadAsDocx = async () => {
@@ -81,46 +81,44 @@ export default function App() {
       ],
     });
     const blob = await Packer.toBlob(doc);
-    saveAs(blob, `${letterType.replace(/\s+/g, '_')}_letter.docx`);
+    saveAs(blob, `${subtype.replace(/\s+/g, '_')}_letter.docx`);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-100 to-indigo-200 p-6">
-      <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+      <div className="max-w-3xl mx-auto bg-white p-6 rounded-xl shadow-xl">
         <h1 className="text-3xl font-bold text-center text-blue-800 mb-6">📄 InstantLetter.ai</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <select className="border p-2" value={category} onChange={(e) => {
-            const cat = e.target.value;
-            setCategory(cat);
-            setLetterType(categories[cat].subtypes[0]);
-            setFields({});
-          }}>
-            {Object.keys(categories).map((cat) => (
-              <option key={cat}>{cat}</option>
-            ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <select className="border p-2" value={category} onChange={(e) => handleCategoryChange(e.target.value)}>
+            {Object.keys(letterTemplates).map((cat) => <option key={cat}>{cat}</option>)}
           </select>
-
-          <select className="border p-2" value={letterType} onChange={(e) => setLetterType(e.target.value)}>
-            {categories[category].subtypes.map((sub) => (
-              <option key={sub}>{sub}</option>
-            ))}
-          </select>
-
-          {categories[category].fields.map(label => (
-            <input key={label} className="border p-2 col-span-2" placeholder={label} value={fields[label] || ''} onChange={(e) => handleFieldChange(label, e.target.value)} />
-          ))}
-
-          <select className="border p-2 col-span-2" value={tone} onChange={(e) => setTone(e.target.value)}>
-            <option>Formal</option>
-            <option>Friendly</option>
-            <option>Apologetic</option>
-            <option>Grateful</option>
-            <option>Assertive</option>
+          <select className="border p-2" value={subtype} onChange={(e) => handleSubtypeChange(e.target.value)}>
+            {Object.keys(letterTemplates[category] || {}).map((sub) => <option key={sub}>{sub}</option>)}
           </select>
         </div>
 
-        <button className="mt-6 w-full bg-blue-700 hover:bg-blue-800 text-white py-2 rounded text-lg font-semibold" onClick={generateLetter} disabled={loading}>
+        <div className="grid grid-cols-1 gap-3 mb-4">
+          {Object.keys(fields).map((field) => (
+            <input
+              key={field}
+              className="border p-2 rounded"
+              placeholder={field}
+              value={formData[field] || ''}
+              onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
+            />
+          ))}
+        </div>
+
+        <select className="border p-2 mb-4 w-full" value={tone} onChange={(e) => setTone(e.target.value)}>
+          <option>Formal</option>
+          <option>Friendly</option>
+          <option>Apologetic</option>
+          <option>Grateful</option>
+          <option>Assertive</option>
+        </select>
+
+        <button className="w-full bg-blue-700 hover:bg-blue-800 text-white py-2 rounded text-lg font-semibold" onClick={generateLetter} disabled={loading}>
           {loading ? 'Generating...' : 'Generate Letter'}
         </button>
 
