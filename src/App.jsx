@@ -1,3 +1,6 @@
+
+// File: src/App.jsx
+
 import React, { useState } from 'react';
 import { saveAs } from 'file-saver';
 import { jsPDF } from 'jspdf';
@@ -8,42 +11,41 @@ export default function App() {
   const categories = {
     Education: {
       subtypes: ['Admission Letter', 'Recommendation Letter', 'Hostile Student Letter'],
-      fields: ['Student Name', 'Institution Name', 'Purpose']
+      fields: ['Student Name', 'Institution Name', 'Purpose of Letter']
     },
     Employment: {
       subtypes: ['Job Application', 'Resignation Letter', 'Experience Certificate'],
-      fields: ['Employee Name', 'Company Name', 'Position']
+      fields: ['Employee Name', 'Company Name', 'Job Title']
     },
     Visa: {
       subtypes: ['Sponsor Letter', 'Visa Explanation Letter'],
-      fields: ['Applicant Name', 'Country', 'Visa Type']
+      fields: ['Applicant Name', 'Embassy/Consulate', 'Visa Type']
     },
     Legal: {
       subtypes: ['Authorization Letter', 'Affidavit'],
-      fields: ['Name', 'Legal Purpose']
+      fields: ['Your Name', 'Recipient Name', 'Legal Reason']
     },
     Banking: {
       subtypes: ['Loan Application', 'Bank Statement Request'],
-      fields: ['Account Holder Name', 'Bank Name', 'Reason']
+      fields: ['Account Holder Name', 'Bank Name', 'Request Purpose']
     }
   };
 
-  const [selectedCategory, setSelectedCategory] = useState('Education');
-  const [selectedSubtype, setSelectedSubtype] = useState(categories['Education'].subtypes[0]);
+  const [category, setCategory] = useState('Education');
+  const [letterType, setLetterType] = useState(categories['Education'].subtypes[0]);
   const [tone, setTone] = useState('Formal');
+  const [fields, setFields] = useState({});
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const [fieldData, setFieldData] = useState({});
-
-  const handleFieldChange = (field, value) => {
-    setFieldData(prev => ({ ...prev, [field]: value }));
+  const handleFieldChange = (label, value) => {
+    setFields(prev => ({ ...prev, [label]: value }));
   };
 
   const generateLetter = async () => {
     setLoading(true);
+    const context = Object.entries(fields).map(([k, v]) => `${k}: ${v}`).join(', ');
     try {
-      const context = Object.entries(fieldData).map(([k, v]) => `${k}: ${v}`).join(', ');
       const res = await fetch('/api/generate-letter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -51,7 +53,7 @@ export default function App() {
           messages: [
             {
               role: 'user',
-              content: `Write a ${tone.toLowerCase()} ${selectedSubtype} under ${selectedCategory} category. Details: ${context}`,
+              content: `Write a ${tone.toLowerCase()} ${letterType} in the ${category} category. Context: ${context}`,
             },
           ],
         }),
@@ -59,7 +61,6 @@ export default function App() {
       const data = await res.json();
       setOutput(data?.reply ?? 'No response received');
     } catch (err) {
-      console.error('API error:', err);
       setOutput('Error generating letter.');
     }
     setLoading(false);
@@ -68,7 +69,7 @@ export default function App() {
   const downloadAsPDF = () => {
     const doc = new jsPDF();
     doc.text(output, 10, 10);
-    doc.save(`${selectedSubtype.replace(/\s+/g, '_')}_letter.pdf`);
+    doc.save(`${letterType.replace(/\s+/g, '_')}_letter.pdf`);
   };
 
   const downloadAsDocx = async () => {
@@ -80,11 +81,8 @@ export default function App() {
       ],
     });
     const blob = await Packer.toBlob(doc);
-    saveAs(blob, `${selectedSubtype.replace(/\s+/g, '_')}_letter.docx`);
+    saveAs(blob, `${letterType.replace(/\s+/g, '_')}_letter.docx`);
   };
-
-  const subtypes = categories[selectedCategory].subtypes;
-  const fields = categories[selectedCategory].fields;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-100 to-indigo-200 p-6">
@@ -92,31 +90,25 @@ export default function App() {
         <h1 className="text-3xl font-bold text-center text-blue-800 mb-6">📄 InstantLetter.ai</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <select className="border p-2" value={selectedCategory} onChange={(e) => {
+          <select className="border p-2" value={category} onChange={(e) => {
             const cat = e.target.value;
-            setSelectedCategory(cat);
-            setSelectedSubtype(categories[cat].subtypes[0]);
-            setFieldData({});
+            setCategory(cat);
+            setLetterType(categories[cat].subtypes[0]);
+            setFields({});
           }}>
             {Object.keys(categories).map((cat) => (
               <option key={cat}>{cat}</option>
             ))}
           </select>
 
-          <select className="border p-2" value={selectedSubtype} onChange={(e) => setSelectedSubtype(e.target.value)}>
-            {subtypes.map((sub) => (
+          <select className="border p-2" value={letterType} onChange={(e) => setLetterType(e.target.value)}>
+            {categories[category].subtypes.map((sub) => (
               <option key={sub}>{sub}</option>
             ))}
           </select>
 
-          {fields.map((field) => (
-            <input
-              key={field}
-              className="border p-2 col-span-2"
-              placeholder={field}
-              value={fieldData[field] || ''}
-              onChange={(e) => handleFieldChange(field, e.target.value)}
-            />
+          {categories[category].fields.map(label => (
+            <input key={label} className="border p-2 col-span-2" placeholder={label} value={fields[label] || ''} onChange={(e) => handleFieldChange(label, e.target.value)} />
           ))}
 
           <select className="border p-2 col-span-2" value={tone} onChange={(e) => setTone(e.target.value)}>
