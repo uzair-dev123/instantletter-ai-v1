@@ -1,3 +1,5 @@
+// File: src/App.jsx
+
 import React, { useState, useEffect } from 'react';
 import { saveAs } from 'file-saver';
 import { jsPDF } from 'jspdf';
@@ -35,19 +37,29 @@ export default function App() {
   const generateLetter = async () => {
     setLoading(true);
     try {
-      const fullContext = fields
-        .map(field => formData[field.name] || field.placeholder || '')
-        .join('. ');
+      const filledFields = fields
+        .filter(field => formData[field.name]?.trim() !== '')
+        .map(field => `${field.name}: ${formData[field.name].trim()}`)
+        .join('\n');
+
+      const signatureBlock = ['Sender Name', 'Sender Title', 'Organization Name']
+        .map(key => formData[key] || '')
+        .filter(Boolean)
+        .join('\n');
 
       const prompt = `
-Write a complete ${tone.toLowerCase()} letter for the purpose of "${selectedSubtype}" in the category "${selectedCategory}". 
+You are a professional letter writer.
 
-The letter must be ready to send and must not include any placeholders like [Your Name], [Your Title], or [Contact Info]. Use the following information naturally in the body of the letter:
+Write a complete and polished "${selectedSubtype}" letter under the "${selectedCategory}" category.
 
-${fullContext}
+Use this information directly in the body. Avoid using placeholders like [Your Name] or [Your Title]. Incorporate the details naturally:
 
-Do not include field names or labels. Just write the polished, professional letter with correct formatting. Output only the final letter.
-`;
+${filledFields}
+
+${signatureBlock ? `Close the letter with the following signature block:\n${signatureBlock}` : ''}
+
+Keep the tone ${tone.toLowerCase()}. Do not include field labels in the output.
+      `.trim();
 
       const res = await fetch('/api/generate-letter', {
         method: 'POST',
