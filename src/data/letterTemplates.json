@@ -4,214 +4,67 @@
     "subcategory": "Admission Letter",
     "fields": [
       {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your admission letter"
+        "name": "Student Name",
+        "key": "student_name",
+        "placeholder": "Atiqa Khan",
+        "required": true,
+        "description": "Full name of the applicant who is being offered admission"
       },
       {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
+        "name": "Program Name",
+        "key": "program_name",
+        "placeholder": "BS Botany",
+        "required": true,
+        "description": "The degree or program the student is being admitted to"
       },
       {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for admission letter."
+        "name": "Institution Name",
+        "key": "institution_name",
+        "placeholder": "Sialkot University",
+        "required": true,
+        "description": "The name of the university or college"
       },
       {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
+        "name": "Intake Date",
+        "key": "intake_date",
+        "placeholder": "19/04/2025",
+        "required": true,
+        "description": "Start date or session the student is being admitted for"
       },
       {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
+        "name": "Purpose",
+        "key": "purpose",
+        "placeholder": "To pursue higher studies in the mentioned field",
+        "required": false,
+        "description": "Optional sentence explaining the student's intent"
       },
       {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Education",
-    "subcategory": "Transcript Request",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your transcript request"
+        "name": "Student Address",
+        "key": "student_address",
+        "placeholder": "Mohalla Jammu, Zafarwal",
+        "required": false,
+        "description": "Mailing or residential address of the applicant"
       },
       {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for transcript request."
-      },
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Education",
-    "subcategory": "Recommendation Letter",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your recommendation letter"
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for recommendation letter."
+        "name": "Contact Info",
+        "key": "contact_info",
+        "placeholder": "03086423157 or atiqa@email.com",
+        "required": false,
+        "description": "Optional contact details of the student"
       },
       {
         "name": "Sender Name",
         "key": "sender_name",
-        "placeholder": ""
+        "placeholder": "Uzair Hassan Khan",
+        "required": true,
+        "description": "Full name of the person issuing the letter"
       },
       {
         "name": "Sender Title",
         "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Education",
-    "subcategory": "Complaint Letter",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your complaint letter"
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for complaint letter."
-      },
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Education",
-    "subcategory": "Hostile Student Warning",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your hostile student warning"
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for hostile student warning."
-      },
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Education",
-    "subcategory": "Transfer Certificate Request",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your transfer certificate request"
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for transfer certificate request."
-      },
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
+        "placeholder": "Registrar",
+        "required": true,
+        "description": "Official title of the sender"
       }
     ]
   },
@@ -220,178 +73,46 @@
     "subcategory": "Job Application",
     "fields": [
       {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your job application"
+        "name": "Applicant Name",
+        "key": "applicant_name",
+        "placeholder": "John Doe",
+        "required": true,
+        "description": "Name of the person applying for the job"
       },
       {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
+        "name": "Position",
+        "key": "position",
+        "placeholder": "Software Engineer",
+        "required": true,
+        "description": "Job title being applied for"
       },
       {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for job application."
+        "name": "Company Name",
+        "key": "company_name",
+        "placeholder": "Tech Solutions Inc.",
+        "required": true,
+        "description": "The company receiving the application"
       },
       {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
+        "name": "Cover Letter Summary",
+        "key": "cover_letter_summary",
+        "placeholder": "Experienced in full-stack development...",
+        "required": true,
+        "description": "Brief introduction or summary"
       },
       {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
+        "name": "LinkedIn URL",
+        "key": "linkedin_url",
+        "placeholder": "https://linkedin.com/in/johndoe",
+        "required": false,
+        "description": "LinkedIn or other professional URL"
       },
       {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Employment",
-    "subcategory": "Resignation Letter",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your resignation letter"
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for resignation letter."
-      },
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Employment",
-    "subcategory": "Experience Letter Request",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your experience letter request"
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for experience letter request."
-      },
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Employment",
-    "subcategory": "Leave Letter",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your leave letter"
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for leave letter."
-      },
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Employment",
-    "subcategory": "Reference Letter",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your reference letter"
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for reference letter."
-      },
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
+        "name": "Contact Info",
+        "key": "contact_info",
+        "placeholder": "john@email.com",
+        "required": false,
+        "description": "Phone or email"
       }
     ]
   },
@@ -400,322 +121,60 @@
     "subcategory": "Sponsor Letter",
     "fields": [
       {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your sponsor letter"
+        "name": "Sponsor Name",
+        "key": "sponsor_name",
+        "placeholder": "Ali Raza",
+        "required": true,
+        "description": "Name of the person sponsoring the applicant"
       },
       {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
+        "name": "Applicant Name",
+        "key": "applicant_name",
+        "placeholder": "Sara Khan",
+        "required": true,
+        "description": "Visa applicant\u2019s name"
       },
       {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for sponsor letter."
+        "name": "Relationship",
+        "key": "relationship",
+        "placeholder": "Cousin",
+        "required": true,
+        "description": "Relationship with the sponsor"
       },
       {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
+        "name": "Visa Type",
+        "key": "visa_type",
+        "placeholder": "Visitor",
+        "required": true,
+        "description": "Type of visa applied for"
       },
       {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
+        "name": "Country",
+        "key": "country",
+        "placeholder": "United Kingdom",
+        "required": true,
+        "description": "Country of intended travel"
       },
       {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Visa & Immigration",
-    "subcategory": "Visa Explanation Letter",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your visa explanation letter"
+        "name": "Support Duration",
+        "key": "support_duration",
+        "placeholder": "3 months",
+        "required": false,
+        "description": "Duration of financial/host support"
       },
       {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
+        "name": "Address",
+        "key": "address",
+        "placeholder": "123 Park Avenue, London",
+        "required": false,
+        "description": "Address of the sponsor"
       },
       {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for visa explanation letter."
-      },
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Visa & Immigration",
-    "subcategory": "Invitation Letter",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your invitation letter"
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for invitation letter."
-      },
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Visa & Immigration",
-    "subcategory": "Cover Letter for Visa",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your cover letter for visa"
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for cover letter for visa."
-      },
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Visa & Immigration",
-    "subcategory": "Travel Itinerary Letter",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your travel itinerary letter"
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for travel itinerary letter."
-      },
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Legal",
-    "subcategory": "Authorization Letter",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your authorization letter"
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for authorization letter."
-      },
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Legal",
-    "subcategory": "Affidavit",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your affidavit"
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for affidavit."
-      },
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Legal",
-    "subcategory": "Power of Attorney",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your power of attorney"
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for power of attorney."
-      },
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Legal",
-    "subcategory": "NOC Letter",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your noc letter"
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for noc letter."
-      },
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
+        "name": "Contact Info",
+        "key": "contact_info",
+        "placeholder": "sponsor@email.com",
+        "required": false,
+        "description": "Phone or email"
       }
     ]
   },
@@ -724,250 +183,46 @@
     "subcategory": "Loan Application",
     "fields": [
       {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your loan application"
+        "name": "Applicant Name",
+        "key": "applicant_name",
+        "placeholder": "Tariq Mehmood",
+        "required": true,
+        "description": "Person requesting the loan"
       },
       {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
+        "name": "Loan Amount",
+        "key": "loan_amount",
+        "placeholder": "$25,000",
+        "required": true,
+        "description": "Requested loan amount"
       },
       {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for loan application."
+        "name": "Purpose",
+        "key": "purpose",
+        "placeholder": "To expand business operations",
+        "required": true,
+        "description": "Loan usage reason"
       },
       {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
+        "name": "Income Info",
+        "key": "income_info",
+        "placeholder": "Annual income is $60,000",
+        "required": false,
+        "description": "Financial information"
       },
       {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
+        "name": "Repayment Plan",
+        "key": "repayment_plan",
+        "placeholder": "Monthly over 24 months",
+        "required": false,
+        "description": "Suggested repayment plan"
       },
       {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Banking & Finance",
-    "subcategory": "Bank Statement Request",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your bank statement request"
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for bank statement request."
-      },
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Banking & Finance",
-    "subcategory": "Import LC Request",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your import lc request"
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for import lc request."
-      },
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Banking & Finance",
-    "subcategory": "Export Performance Letter",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your export performance letter"
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for export performance letter."
-      },
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Personal & Miscellaneous",
-    "subcategory": "Apology Letter",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your apology letter"
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for apology letter."
-      },
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Personal & Miscellaneous",
-    "subcategory": "Gratitude Letter",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your gratitude letter"
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for gratitude letter."
-      },
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Personal & Miscellaneous",
-    "subcategory": "Leave of Absence",
-    "fields": [
-      {
-        "name": "Subject",
-        "key": "subject",
-        "placeholder": "Regarding your leave of absence"
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Context",
-        "key": "context",
-        "placeholder": "This is a request for leave of absence."
-      },
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Sender Title",
-        "key": "sender_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization Name",
-        "key": "organization_name",
-        "placeholder": ""
+        "name": "Bank Name",
+        "key": "bank_name",
+        "placeholder": "Meezan Bank",
+        "required": true,
+        "description": "Bank to which the letter is addressed"
       }
     ]
   }
