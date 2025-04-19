@@ -1,5 +1,3 @@
-// File: src/App.jsx
-
 import React, { useState, useEffect } from 'react';
 import { saveAs } from 'file-saver';
 import { jsPDF } from 'jspdf';
@@ -37,29 +35,22 @@ export default function App() {
   const generateLetter = async () => {
     setLoading(true);
     try {
-      const filledFields = fields
-        .filter(field => formData[field.name]?.trim() !== '')
-        .map(field => `${field.name}: ${formData[field.name].trim()}`)
-        .join('\n');
-
-      const signatureBlock = ['Sender Name', 'Sender Title', 'Organization Name']
-        .map(key => formData[key] || '')
-        .filter(Boolean)
+      const filteredFields = fields.filter(f => f.required || formData[f.name]);
+      const formattedFields = filteredFields
+        .map(field => `${field.name}: ${formData[field.name] || field.placeholder || ''}`)
         .join('\n');
 
       const prompt = `
 You are a professional letter writer.
 
-Write a complete and polished "${selectedSubtype}" letter under the "${selectedCategory}" category.
+Write a complete and ready-to-send "${selectedSubtype}" letter under the "${selectedCategory}" category.
 
-Use this information directly in the body. Avoid using placeholders like [Your Name] or [Your Title]. Incorporate the details naturally:
+Use this exact data in the body of the letter. Do not use any placeholders like [Your Name] or [Title]. Only incorporate real content provided by the user:
 
-${filledFields}
+${formattedFields}
 
-${signatureBlock ? `Close the letter with the following signature block:\n${signatureBlock}` : ''}
-
-Keep the tone ${tone.toLowerCase()}. Do not include field labels in the output.
-      `.trim();
+Tone: ${tone.toLowerCase()}.
+`;
 
       const res = await fetch('/api/generate-letter', {
         method: 'POST',
@@ -119,6 +110,8 @@ Keep the tone ${tone.toLowerCase()}. Do not include field labels in the output.
               key={idx}
               className="border p-2 col-span-2"
               placeholder={field.placeholder || field.name}
+              required={field.required}
+              title={field.description}
               value={formData[field.name] || ''}
               onChange={(e) => setFormData({ ...formData, [field.name]: e.target.value })}
             />
