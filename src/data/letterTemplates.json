@@ -5,37 +5,30 @@
     "fields": [
       {
         "name": "Student Name",
-        "key": "student_name",
         "placeholder": ""
       },
       {
         "name": "Program Name",
-        "key": "program_name",
         "placeholder": ""
       },
       {
         "name": "Institution Name",
-        "key": "institution_name",
         "placeholder": ""
       },
       {
         "name": "Intake Date",
-        "key": "intake_date",
         "placeholder": ""
       },
       {
         "name": "Purpose",
-        "key": "purpose",
         "placeholder": "To pursue higher studies in the mentioned field."
       },
       {
         "name": "Student Address",
-        "key": "student_address",
         "placeholder": ""
       },
       {
         "name": "Contact Info",
-        "key": "contact_info",
         "placeholder": "You can contact me for further details."
       }
     ]
@@ -46,32 +39,26 @@
     "fields": [
       {
         "name": "Recommender Name",
-        "key": "recommender_name",
         "placeholder": ""
       },
       {
         "name": "Recommender Position",
-        "key": "recommender_position",
         "placeholder": ""
       },
       {
         "name": "Applicant Name",
-        "key": "applicant_name",
         "placeholder": ""
       },
       {
         "name": "Relationship",
-        "key": "relationship",
         "placeholder": ""
       },
       {
         "name": "Achievements",
-        "key": "achievements",
         "placeholder": ""
       },
       {
         "name": "Target Institution",
-        "key": "target_institution",
         "placeholder": ""
       }
     ]
@@ -82,544 +69,23 @@
     "fields": [
       {
         "name": "Student Name",
-        "key": "student_name",
         "placeholder": ""
       },
       {
         "name": "Roll Number",
-        "key": "roll_number",
         "placeholder": ""
       },
       {
         "name": "Graduation Year",
-        "key": "graduation_year",
         "placeholder": ""
       },
       {
         "name": "Mailing Address",
-        "key": "mailing_address",
         "placeholder": ""
       },
       {
         "name": "Reason for Request",
-        "key": "reason_for_request",
         "placeholder": "For academic and professional purposes."
-      }
-    ]
-  },
-  {
-    "category": "Education",
-    "subcategory": "Transfer Certificate Request",
-    "fields": [
-      {
-        "name": "Student Name",
-        "key": "student_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Grade/Class",
-        "key": "grade/class",
-        "placeholder": ""
-      },
-      {
-        "name": "Reason for Transfer",
-        "key": "reason_for_transfer",
-        "placeholder": ""
-      },
-      {
-        "name": "New School Name",
-        "key": "new_school_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Required Date",
-        "key": "required_date",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Employment",
-    "subcategory": "Job Application",
-    "fields": [
-      {
-        "name": "Applicant Name",
-        "key": "applicant_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Position",
-        "key": "position",
-        "placeholder": ""
-      },
-      {
-        "name": "Company Name",
-        "key": "company_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Cover Letter Summary",
-        "key": "cover_letter_summary",
-        "placeholder": ""
-      },
-      {
-        "name": "LinkedIn URL",
-        "key": "linkedin_url",
-        "placeholder": ""
-      },
-      {
-        "name": "Contact Info",
-        "key": "contact_info",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Employment",
-    "subcategory": "Resignation Letter",
-    "fields": [
-      {
-        "name": "Employee Name",
-        "key": "employee_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Position",
-        "key": "position",
-        "placeholder": ""
-      },
-      {
-        "name": "Last Working Day",
-        "key": "last_working_day",
-        "placeholder": ""
-      },
-      {
-        "name": "Reason",
-        "key": "reason",
-        "placeholder": ""
-      },
-      {
-        "name": "Manager Name",
-        "key": "manager_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Employment",
-    "subcategory": "Experience Certificate Request",
-    "fields": [
-      {
-        "name": "Employee Name",
-        "key": "employee_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Job Title",
-        "key": "job_title",
-        "placeholder": ""
-      },
-      {
-        "name": "Duration",
-        "key": "duration",
-        "placeholder": ""
-      },
-      {
-        "name": "Supervisor Name",
-        "key": "supervisor_name",
-        "placeholder": ""
-      },
-      {
-        "name": "HR Contact",
-        "key": "hr_contact",
-        "placeholder": "To whom it may concern at the Human Resources Department"
-      }
-    ]
-  },
-  {
-    "category": "Employment",
-    "subcategory": "Reference Letter",
-    "fields": [
-      {
-        "name": "Referrer Name",
-        "key": "referrer_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Relationship",
-        "key": "relationship",
-        "placeholder": ""
-      },
-      {
-        "name": "Employee Name",
-        "key": "employee_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Duration Worked Together",
-        "key": "duration_worked_together",
-        "placeholder": "We have worked together for several years."
-      },
-      {
-        "name": "Skills Endorsed",
-        "key": "skills_endorsed",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Visa & Immigration",
-    "subcategory": "Sponsor Letter",
-    "fields": [
-      {
-        "name": "Sponsor Name",
-        "key": "sponsor_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Applicant Name",
-        "key": "applicant_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Relationship",
-        "key": "relationship",
-        "placeholder": ""
-      },
-      {
-        "name": "Visa Type",
-        "key": "visa_type",
-        "placeholder": ""
-      },
-      {
-        "name": "Country",
-        "key": "country",
-        "placeholder": ""
-      },
-      {
-        "name": "Support Duration",
-        "key": "support_duration",
-        "placeholder": ""
-      },
-      {
-        "name": "Address",
-        "key": "address",
-        "placeholder": ""
-      },
-      {
-        "name": "Contact Info",
-        "key": "contact_info",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Visa & Immigration",
-    "subcategory": "Visa Explanation Letter",
-    "fields": [
-      {
-        "name": "Applicant Name",
-        "key": "applicant_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Visa Type",
-        "key": "visa_type",
-        "placeholder": ""
-      },
-      {
-        "name": "Reason for Visit",
-        "key": "reason_for_visit",
-        "placeholder": ""
-      },
-      {
-        "name": "Travel Dates",
-        "key": "travel_dates",
-        "placeholder": ""
-      },
-      {
-        "name": "Supporting Documents",
-        "key": "supporting_documents",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Visa & Immigration",
-    "subcategory": "Cover Letter for Visa",
-    "fields": [
-      {
-        "name": "Applicant Name",
-        "key": "applicant_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Passport Number",
-        "key": "passport_number",
-        "placeholder": ""
-      },
-      {
-        "name": "Purpose of Travel",
-        "key": "purpose_of_travel",
-        "placeholder": ""
-      },
-      {
-        "name": "Destination Country",
-        "key": "destination_country",
-        "placeholder": ""
-      },
-      {
-        "name": "Trip Plan Summary",
-        "key": "trip_plan_summary",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Visa & Immigration",
-    "subcategory": "Invitation Letter",
-    "fields": [
-      {
-        "name": "Host Name",
-        "key": "host_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Visitor Name",
-        "key": "visitor_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Dates of Visit",
-        "key": "dates_of_visit",
-        "placeholder": ""
-      },
-      {
-        "name": "Relationship",
-        "key": "relationship",
-        "placeholder": ""
-      },
-      {
-        "name": "Host Address",
-        "key": "host_address",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Banking & Finance",
-    "subcategory": "Bank Statement Request",
-    "fields": [
-      {
-        "name": "Account Holder Name",
-        "key": "account_holder_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Bank Name",
-        "key": "bank_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Account Number",
-        "key": "account_number",
-        "placeholder": ""
-      },
-      {
-        "name": "Duration Required",
-        "key": "duration_required",
-        "placeholder": ""
-      },
-      {
-        "name": "Reason",
-        "key": "reason",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Banking & Finance",
-    "subcategory": "Loan Application",
-    "fields": [
-      {
-        "name": "Applicant Name",
-        "key": "applicant_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Loan Amount",
-        "key": "loan_amount",
-        "placeholder": ""
-      },
-      {
-        "name": "Purpose",
-        "key": "purpose",
-        "placeholder": ""
-      },
-      {
-        "name": "Income Info",
-        "key": "income_info",
-        "placeholder": ""
-      },
-      {
-        "name": "Repayment Plan",
-        "key": "repayment_plan",
-        "placeholder": ""
-      },
-      {
-        "name": "Bank Name",
-        "key": "bank_name",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Banking & Finance",
-    "subcategory": "Import LC Request",
-    "fields": [
-      {
-        "name": "Company Name",
-        "key": "company_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Importer Name",
-        "key": "importer_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Amount",
-        "key": "amount",
-        "placeholder": ""
-      },
-      {
-        "name": "Bank Name",
-        "key": "bank_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Product Description",
-        "key": "product_description",
-        "placeholder": ""
-      },
-      {
-        "name": "Shipment Date",
-        "key": "shipment_date",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Banking & Finance",
-    "subcategory": "Export Performance Letter",
-    "fields": [
-      {
-        "name": "Exporter Name",
-        "key": "exporter_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Products Exported",
-        "key": "products_exported",
-        "placeholder": ""
-      },
-      {
-        "name": "Countries Dealt With",
-        "key": "countries_dealt_with",
-        "placeholder": ""
-      },
-      {
-        "name": "Export Volume",
-        "key": "export_volume",
-        "placeholder": ""
-      },
-      {
-        "name": "Duration",
-        "key": "duration",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Personal & Miscellaneous",
-    "subcategory": "Apology Letter",
-    "fields": [
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Reason for Apology",
-        "key": "reason_for_apology",
-        "placeholder": ""
-      },
-      {
-        "name": "Incident Date",
-        "key": "incident_date",
-        "placeholder": ""
-      },
-      {
-        "name": "Regret Statement",
-        "key": "regret_statement",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Personal & Miscellaneous",
-    "subcategory": "Gratitude Letter",
-    "fields": [
-      {
-        "name": "Sender Name",
-        "key": "sender_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Recipient Name",
-        "key": "recipient_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Occasion/Event",
-        "key": "occasion/event",
-        "placeholder": ""
-      },
-      {
-        "name": "Specific Help Received",
-        "key": "specific_help_received",
-        "placeholder": ""
-      }
-    ]
-  },
-  {
-    "category": "Personal & Miscellaneous",
-    "subcategory": "Leave of Absence",
-    "fields": [
-      {
-        "name": "Applicant Name",
-        "key": "applicant_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Organization/School Name",
-        "key": "organization/school_name",
-        "placeholder": ""
-      },
-      {
-        "name": "Leave Dates",
-        "key": "leave_dates",
-        "placeholder": ""
-      },
-      {
-        "name": "Reason",
-        "key": "reason",
-        "placeholder": ""
       }
     ]
   }
