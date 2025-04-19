@@ -7,42 +7,12 @@ import { Document, Packer, Paragraph, TextRun } from 'docx';
 import templates from './data/letterTemplates.json';
 
 export default function App() {
-  const categories = {
-    Education: [
-      'Admission Letter',
-      'Transcript Request',
-      'Recommendation Letter',
-      'Complaint Letter',
-      'Hostile Student Warning'
-    ],
-    Employment: [
-      'Job Application',
-      'Resignation Letter',
-      'Experience Certificate Request',
-      'Leave Letter',
-      'Reference Letter'
-    ],
-    'Visa & Immigration': [
-      'Sponsor Letter',
-      'Visa Explanation Letter',
-      'Invitation Letter',
-      'Cover Letter for Visa'
-    ],
-    'Banking & Finance': [
-      'Loan Application',
-      'Bank Statement Request',
-      'Import LC Request',
-      'Export Performance Letter'
-    ],
-    'Personal & Miscellaneous': [
-      'Apology Letter',
-      'Gratitude Letter',
-      'Leave of Absence'
-    ]
-  };
+  const categories = [...new Set(templates.map(t => t.category))];
 
-  const [selectedCategory, setSelectedCategory] = useState('Education');
-  const [selectedSubtype, setSelectedSubtype] = useState(categories['Education'][0]);
+  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+  const subcategories = templates.filter(t => t.category === selectedCategory).map(t => t.subcategory);
+  const [selectedSubtype, setSelectedSubtype] = useState(subcategories[0]);
+
   const [fields, setFields] = useState([]);
   const [formData, setFormData] = useState({});
   const [tone, setTone] = useState('Formal');
@@ -51,11 +21,13 @@ export default function App() {
 
   useEffect(() => {
     const template = templates.find(
-      (t) => t.category === selectedCategory && t.subcategory === selectedSubtype
+      t => t.category === selectedCategory && t.subcategory === selectedSubtype
     );
-    setFields(template?.fields || []);
+    const templateFields = template?.fields || [];
+    setFields(templateFields);
+
     const newFormData = {};
-    (template?.fields || []).forEach((field) => {
+    templateFields.forEach(field => {
       newFormData[field.name] = '';
     });
     setFormData(newFormData);
@@ -64,7 +36,10 @@ export default function App() {
   const generateLetter = async () => {
     setLoading(true);
     try {
-      const contentString = fields.map((field) => `${field.name}: ${formData[field.name]}`).join('\n');
+      const contentString = fields
+        .map(field => `${field.name}: ${formData[field.name] || field.placeholder || ''}`)
+        .join('\n');
+
       const res = await fetch('/api/generate-letter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -72,11 +47,12 @@ export default function App() {
           messages: [
             {
               role: 'user',
-              content: `Write a ${tone.toLowerCase()} ${selectedSubtype} letter with the following details:\n${contentString}`
-            }
-          ]
-        })
+              content: \`Write a \${tone.toLowerCase()} \${selectedSubtype} letter with the following details:\n\${contentString}\`,
+            },
+          ],
+        }),
       });
+
       const data = await res.json();
       setOutput(data.reply || 'No response received');
     } catch (err) {
@@ -88,19 +64,15 @@ export default function App() {
   const downloadAsPDF = () => {
     const doc = new jsPDF();
     doc.text(output, 10, 10);
-    doc.save(`${selectedSubtype.replace(/\s+/g, '_')}_letter.pdf`);
+    doc.save(\`\${selectedSubtype.replace(/\s+/g, '_')}_letter.pdf\`);
   };
 
   const downloadAsDocx = async () => {
     const doc = new Document({
-      sections: [
-        {
-          children: [new Paragraph({ children: [new TextRun(output)] })]
-        }
-      ]
+      sections: [{ children: [new Paragraph({ children: [new TextRun(output)] })] }],
     });
     const blob = await Packer.toBlob(doc);
-    saveAs(blob, `${selectedSubtype.replace(/\s+/g, '_')}_letter.docx`);
+    saveAs(blob, \`\${selectedSubtype.replace(/\s+/g, '_')}_letter.docx\`);
   };
 
   return (
@@ -112,16 +84,17 @@ export default function App() {
           <select className="border p-2" value={selectedCategory} onChange={(e) => {
             const newCategory = e.target.value;
             setSelectedCategory(newCategory);
-            setSelectedSubtype(categories[newCategory][0]);
+            const defaultSub = templates.find(t => t.category === newCategory)?.subcategory;
+            setSelectedSubtype(defaultSub || '');
           }}>
-            {Object.keys(categories).map((cat) => (
+            {categories.map(cat => (
               <option key={cat}>{cat}</option>
             ))}
           </select>
 
           <select className="border p-2" value={selectedSubtype} onChange={(e) => setSelectedSubtype(e.target.value)}>
-            {categories[selectedCategory].map((sub) => (
-              <option key={sub}>{sub}</option>
+            {templates.filter(t => t.category === selectedCategory).map(t => (
+              <option key={t.subcategory}>{t.subcategory}</option>
             ))}
           </select>
 
