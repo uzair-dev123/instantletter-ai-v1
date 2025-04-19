@@ -43,18 +43,20 @@ export default function App() {
 
   const [selectedCategory, setSelectedCategory] = useState('Education');
   const [selectedSubtype, setSelectedSubtype] = useState(categories['Education'][0]);
-  const [fields, setFields] = useState({});
+  const [fields, setFields] = useState([]);
   const [formData, setFormData] = useState({});
   const [tone, setTone] = useState('Formal');
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const template = templates[selectedCategory]?.[selectedSubtype];
-    setFields(template?.fields || {});
+    const template = templates.find(
+      (t) => t.category === selectedCategory && t.subcategory === selectedSubtype
+    );
+    setFields(template?.fields || []);
     const newFormData = {};
-    Object.keys(template?.fields || {}).forEach((fieldName) => {
-      newFormData[fieldName] = '';
+    (template?.fields || []).forEach((field) => {
+      newFormData[field.name] = '';
     });
     setFormData(newFormData);
   }, [selectedCategory, selectedSubtype]);
@@ -62,9 +64,7 @@ export default function App() {
   const generateLetter = async () => {
     setLoading(true);
     try {
-      const contentString = Object.entries(formData)
-        .map(([key, value]) => `${key}: ${value}`)
-        .join('\n');
+      const contentString = fields.map((field) => `${field.name}: ${formData[field.name]}`).join('\n');
       const res = await fetch('/api/generate-letter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -125,13 +125,13 @@ export default function App() {
             ))}
           </select>
 
-          {Object.entries(fields).map(([fieldName, placeholder], idx) => (
+          {fields.map((field, idx) => (
             <input
               key={idx}
               className="border p-2 col-span-2"
-              placeholder={fieldName}
-              value={formData[fieldName] || ''}
-              onChange={(e) => setFormData({ ...formData, [fieldName]: e.target.value })}
+              placeholder={field.placeholder || field.name}
+              value={formData[field.name] || ''}
+              onChange={(e) => setFormData({ ...formData, [field.name]: e.target.value })}
             />
           ))}
 
