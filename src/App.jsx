@@ -41,15 +41,21 @@ export default function App() {
         .join('\n');
 
       const prompt = `
-You are a professional letter writer.
+You are an expert letter writer.
 
-Write a complete and ready-to-send "${selectedSubtype}" letter under the "${selectedCategory}" category.
+Write a final, professional, ready-to-send "${selectedSubtype}" letter under the "${selectedCategory}" category.
 
-Use this exact data in the body of the letter. Do not use any placeholders like [Your Name] or [Title]. Only incorporate real content provided by the user:
+STRICT RULES:
+- Do NOT use any placeholders like [Your Name], [Your Title], etc.
+- Use only the provided field data exactly as input.
+- If any required field is not filled, skip that sentence logically.
+- Incorporate all field data naturally and professionally in the letter body.
+- Do not repeat field labels in the output — use natural writing.
 
+Provided Data:
 ${formattedFields}
 
-Tone: ${tone.toLowerCase()}.
+Use a ${tone.toLowerCase()} tone. Output only the complete, final version of the letter.
 `;
 
       const res = await fetch('/api/generate-letter', {
