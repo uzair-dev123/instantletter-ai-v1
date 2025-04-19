@@ -5,31 +5,165 @@
     "fields": [
       {
         "name": "Student Name",
+        "key": "student_name",
         "placeholder": ""
       },
       {
         "name": "Program Name",
+        "key": "program_name",
         "placeholder": ""
       },
       {
         "name": "Institution Name",
+        "key": "institution_name",
         "placeholder": ""
       },
       {
         "name": "Intake Date",
+        "key": "intake_date",
         "placeholder": ""
       },
       {
         "name": "Purpose",
-        "placeholder": "To pursue higher studies in the mentioned field."
+        "key": "purpose",
+        "placeholder": "To pursue higher studies."
       },
       {
         "name": "Student Address",
+        "key": "student_address",
         "placeholder": ""
       },
       {
         "name": "Contact Info",
+        "key": "contact_info",
         "placeholder": "You can contact me for further details."
+      },
+      {
+        "name": "Sender Name",
+        "key": "sender_name",
+        "placeholder": "Admissions Office"
+      },
+      {
+        "name": "Sender Title",
+        "key": "sender_title",
+        "placeholder": "Registrar"
+      },
+      {
+        "name": "Organization Name",
+        "key": "organization_name",
+        "placeholder": "Sialkot University"
+      }
+    ]
+  },
+  {
+    "category": "Employment",
+    "subcategory": "Job Application",
+    "fields": [
+      {
+        "name": "Applicant Name",
+        "key": "applicant_name",
+        "placeholder": ""
+      },
+      {
+        "name": "Position",
+        "key": "position",
+        "placeholder": ""
+      },
+      {
+        "name": "Company Name",
+        "key": "company_name",
+        "placeholder": ""
+      },
+      {
+        "name": "Cover Letter Summary",
+        "key": "cover_letter_summary",
+        "placeholder": ""
+      },
+      {
+        "name": "LinkedIn URL",
+        "key": "linkedin_url",
+        "placeholder": ""
+      },
+      {
+        "name": "Contact Info",
+        "key": "contact_info",
+        "placeholder": ""
+      },
+      {
+        "name": "Sender Name",
+        "key": "sender_name",
+        "placeholder": "Uzair Khan"
+      },
+      {
+        "name": "Sender Title",
+        "key": "sender_title",
+        "placeholder": "Job Applicant"
+      },
+      {
+        "name": "Organization Name",
+        "key": "organization_name",
+        "placeholder": ""
+      }
+    ]
+  },
+  {
+    "category": "Visa & Immigration",
+    "subcategory": "Sponsor Letter",
+    "fields": [
+      {
+        "name": "Sponsor Name",
+        "key": "sponsor_name",
+        "placeholder": ""
+      },
+      {
+        "name": "Applicant Name",
+        "key": "applicant_name",
+        "placeholder": ""
+      },
+      {
+        "name": "Relationship",
+        "key": "relationship",
+        "placeholder": ""
+      },
+      {
+        "name": "Visa Type",
+        "key": "visa_type",
+        "placeholder": ""
+      },
+      {
+        "name": "Country",
+        "key": "country",
+        "placeholder": ""
+      },
+      {
+        "name": "Support Duration",
+        "key": "support_duration",
+        "placeholder": ""
+      },
+      {
+        "name": "Address",
+        "key": "address",
+        "placeholder": ""
+      },
+      {
+        "name": "Contact Info",
+        "key": "contact_info",
+        "placeholder": ""
+      },
+      {
+        "name": "Sender Name",
+        "key": "sender_name",
+        "placeholder": "Sponsor"
+      },
+      {
+        "name": "Sender Title",
+        "key": "sender_title",
+        "placeholder": ""
+      },
+      {
+        "name": "Organization Name",
+        "key": "organization_name",
+        "placeholder": ""
       }
     ]
   }
