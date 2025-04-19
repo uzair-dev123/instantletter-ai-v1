@@ -18,46 +18,43 @@ export default function App() {
     Employment: [
       'Job Application',
       'Resignation Letter',
-      'Experience Letter Request',
+      'Experience Certificate Request',
       'Leave Letter',
       'Reference Letter'
     ],
-    Visa: [
+    'Visa & Immigration': [
       'Sponsor Letter',
       'Visa Explanation Letter',
       'Invitation Letter',
-      'Travel Itinerary Letter'
+      'Cover Letter for Visa'
     ],
-    Legal: [
-      'Authorization Letter',
-      'Affidavit',
-      'Power of Attorney',
-      'NOC Letter'
-    ],
-    Banking: [
+    'Banking & Finance': [
       'Loan Application',
       'Bank Statement Request',
-      'Import Letter of Credit',
-      'Export Payment Guarantee'
+      'Import LC Request',
+      'Export Performance Letter'
+    ],
+    'Personal & Miscellaneous': [
+      'Apology Letter',
+      'Gratitude Letter',
+      'Leave of Absence'
     ]
   };
 
   const [selectedCategory, setSelectedCategory] = useState('Education');
   const [selectedSubtype, setSelectedSubtype] = useState(categories['Education'][0]);
-  const [fields, setFields] = useState([]);
+  const [fields, setFields] = useState({});
   const [formData, setFormData] = useState({});
   const [tone, setTone] = useState('Formal');
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const template = templates.find(
-      (t) => t.category === selectedCategory && t.subcategory === selectedSubtype
-    );
-    setFields(template ? template.fields : []);
+    const template = templates[selectedCategory]?.[selectedSubtype];
+    setFields(template?.fields || {});
     const newFormData = {};
-    template?.fields.forEach((field) => {
-      newFormData[field.name] = '';
+    Object.keys(template?.fields || {}).forEach((fieldName) => {
+      newFormData[fieldName] = '';
     });
     setFormData(newFormData);
   }, [selectedCategory, selectedSubtype]);
@@ -65,7 +62,9 @@ export default function App() {
   const generateLetter = async () => {
     setLoading(true);
     try {
-      const contentString = fields.map((field) => `${field.label}: ${formData[field.name]}`).join('\n');
+      const contentString = Object.entries(formData)
+        .map(([key, value]) => `${key}: ${value}`)
+        .join('\n');
       const res = await fetch('/api/generate-letter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -126,13 +125,13 @@ export default function App() {
             ))}
           </select>
 
-          {fields.map((field, idx) => (
+          {Object.entries(fields).map(([fieldName, placeholder], idx) => (
             <input
               key={idx}
               className="border p-2 col-span-2"
-              placeholder={field.placeholder}
-              value={formData[field.name] || ''}
-              onChange={(e) => setFormData({ ...formData, [field.name]: e.target.value })}
+              placeholder={fieldName}
+              value={formData[fieldName] || ''}
+              onChange={(e) => setFormData({ ...formData, [fieldName]: e.target.value })}
             />
           ))}
 
