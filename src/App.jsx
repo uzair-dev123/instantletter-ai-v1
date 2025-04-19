@@ -1,3 +1,5 @@
+// File: src/App.jsx
+
 import React, { useState, useEffect } from 'react';
 import { saveAs } from 'file-saver';
 import { jsPDF } from 'jspdf';
@@ -35,28 +37,21 @@ export default function App() {
   const generateLetter = async () => {
     setLoading(true);
     try {
-      const filteredFields = fields.filter(f => f.required || formData[f.name]);
-      const formattedFields = filteredFields
-        .map(field => `${field.name}: ${formData[field.name] || field.placeholder || ''}`)
+      const nonEmptyFields = fields
+        .filter(field => formData[field.name]?.trim())
+        .map(field => `- ${field.name}: ${formData[field.name].trim()}`)
         .join('\n');
 
       const prompt = `
-You are an expert letter writer.
+You are a professional letter writer.
 
-Write a final, professional, ready-to-send "${selectedSubtype}" letter under the "${selectedCategory}" category.
+Write a complete, polished, ready-to-send "${selectedSubtype}" letter in the "${selectedCategory}" category.
 
-STRICT RULES:
-- Do NOT use any placeholders like [Your Name], [Your Title], etc.
-- Use only the provided field data exactly as input.
-- If any required field is not filled, skip that sentence logically.
-- Incorporate all field data naturally and professionally in the letter body.
-- Do not repeat field labels in the output — use natural writing.
+Use the following real values in the letter naturally:
 
-Provided Data:
-${formattedFields}
+${nonEmptyFields || '- (no fields provided)'}
 
-Use a ${tone.toLowerCase()} tone. Output only the complete, final version of the letter.
-`;
+Avoid using any placeholders like [Your Name], [Title], etc. If any detail is missing, skip it without adding brackets. Use a ${tone.toLowerCase()} tone.`;
 
       const res = await fetch('/api/generate-letter', {
         method: 'POST',
@@ -116,8 +111,6 @@ Use a ${tone.toLowerCase()} tone. Output only the complete, final version of the
               key={idx}
               className="border p-2 col-span-2"
               placeholder={field.placeholder || field.name}
-              required={field.required}
-              title={field.description}
               value={formData[field.name] || ''}
               onChange={(e) => setFormData({ ...formData, [field.name]: e.target.value })}
             />
