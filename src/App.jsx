@@ -1,5 +1,3 @@
-// File: src/App.jsx
-
 import React, { useState, useEffect } from 'react';
 import { saveAs } from 'file-saver';
 import { jsPDF } from 'jspdf';
@@ -8,11 +6,8 @@ import templates from './data/letterTemplates.json';
 
 export default function App() {
   const categories = [...new Set(templates.map(t => t.category))];
-
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
-  const subcategories = templates.filter(t => t.category === selectedCategory).map(t => t.subcategory);
-  const [selectedSubtype, setSelectedSubtype] = useState(subcategories[0]);
-
+  const [selectedSubtype, setSelectedSubtype] = useState('');
   const [fields, setFields] = useState([]);
   const [formData, setFormData] = useState({});
   const [tone, setTone] = useState('Formal');
@@ -20,12 +15,16 @@ export default function App() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    const subtypes = templates.filter(t => t.category === selectedCategory).map(t => t.subcategory);
+    setSelectedSubtype(subtypes[0]);
+  }, [selectedCategory]);
+
+  useEffect(() => {
     const template = templates.find(
       t => t.category === selectedCategory && t.subcategory === selectedSubtype
     );
     const templateFields = template?.fields || [];
     setFields(templateFields);
-
     const newFormData = {};
     templateFields.forEach(field => {
       newFormData[field.name] = '';
@@ -47,7 +46,7 @@ export default function App() {
           messages: [
             {
               role: 'user',
-              content: \`Write a \${tone.toLowerCase()} \${selectedSubtype} letter with the following details:\n\${contentString}\`,
+              content: `Write a ${tone.toLowerCase()} ${selectedSubtype} letter with the following details:\n${contentString}`,
             },
           ],
         }),
@@ -64,7 +63,7 @@ export default function App() {
   const downloadAsPDF = () => {
     const doc = new jsPDF();
     doc.text(output, 10, 10);
-    doc.save(\`\${selectedSubtype.replace(/\s+/g, '_')}_letter.pdf\`);
+    doc.save(`${selectedSubtype.replace(/\s+/g, '_')}_letter.pdf`);
   };
 
   const downloadAsDocx = async () => {
@@ -72,7 +71,7 @@ export default function App() {
       sections: [{ children: [new Paragraph({ children: [new TextRun(output)] })] }],
     });
     const blob = await Packer.toBlob(doc);
-    saveAs(blob, \`\${selectedSubtype.replace(/\s+/g, '_')}_letter.docx\`);
+    saveAs(blob, `${selectedSubtype.replace(/\s+/g, '_')}_letter.docx`);
   };
 
   return (
@@ -81,12 +80,7 @@ export default function App() {
         <h1 className="text-3xl font-bold text-center text-blue-800 mb-6">📄 InstantLetter.ai</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <select className="border p-2" value={selectedCategory} onChange={(e) => {
-            const newCategory = e.target.value;
-            setSelectedCategory(newCategory);
-            const defaultSub = templates.find(t => t.category === newCategory)?.subcategory;
-            setSelectedSubtype(defaultSub || '');
-          }}>
+          <select className="border p-2" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
             {categories.map(cat => (
               <option key={cat}>{cat}</option>
             ))}
