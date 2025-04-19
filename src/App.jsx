@@ -40,15 +40,15 @@ export default function App() {
         .join('\n');
 
       const prompt = `
-You are an expert assistant that writes professional letters using real data, not placeholders.
+You are a professional letter writer.
 
-Write a ${tone.toLowerCase()} letter of type "${selectedSubtype}" under the "${selectedCategory}" category.
+Write a final, ready-to-send "${selectedSubtype}" letter under the "${selectedCategory}" category.
 
-Make sure to include the following information in the body of the letter as real values:
+Use the following exact information in the body of the letter. Do not use placeholders like [Your Name] or [Your Title]. This letter should look like it was written and signed by a real person. Incorporate the data naturally into the letter:
 
 ${formattedFields}
 
-Avoid using placeholders like [Your Name], [Your Title], etc. Instead, use the actual input provided. Write the letter using real names, details, and contacts provided above.
+Make the tone ${tone.toLowerCase()} and keep the letter complete and polished. Output the final version only.
 `;
 
       const res = await fetch('/api/generate-letter', {
