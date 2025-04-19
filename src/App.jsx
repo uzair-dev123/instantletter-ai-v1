@@ -35,20 +35,18 @@ export default function App() {
   const generateLetter = async () => {
     setLoading(true);
     try {
-      const formattedFields = fields
-        .map(field => `${field.name}: ${formData[field.name] || field.placeholder || ''}`)
-        .join('\n');
+      const fullContext = fields
+        .map(field => formData[field.name] || field.placeholder || '')
+        .join('. ');
 
       const prompt = `
-You are a professional letter writer.
+Write a complete ${tone.toLowerCase()} letter for the purpose of "${selectedSubtype}" in the category "${selectedCategory}". 
 
-Write a final, ready-to-send "${selectedSubtype}" letter under the "${selectedCategory}" category.
+The letter must be ready to send and must not include any placeholders like [Your Name], [Your Title], or [Contact Info]. Use the following information naturally in the body of the letter:
 
-Use the following exact information in the body of the letter. Do not use placeholders like [Your Name] or [Your Title]. This letter should look like it was written and signed by a real person. Incorporate the data naturally into the letter:
+${fullContext}
 
-${formattedFields}
-
-Make the tone ${tone.toLowerCase()} and keep the letter complete and polished. Output the final version only.
+Do not include field names or labels. Just write the polished, professional letter with correct formatting. Output only the final letter.
 `;
 
       const res = await fetch('/api/generate-letter', {
