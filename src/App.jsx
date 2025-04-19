@@ -35,9 +35,21 @@ export default function App() {
   const generateLetter = async () => {
     setLoading(true);
     try {
-      const contentString = fields
+      const formattedFields = fields
         .map(field => `${field.name}: ${formData[field.name] || field.placeholder || ''}`)
         .join('\n');
+
+      const prompt = `
+You are an expert assistant that writes professional letters using real data, not placeholders.
+
+Write a ${tone.toLowerCase()} letter of type "${selectedSubtype}" under the "${selectedCategory}" category.
+
+Make sure to include the following information in the body of the letter as real values:
+
+${formattedFields}
+
+Avoid using placeholders like [Your Name], [Your Title], etc. Instead, use the actual input provided. Write the letter using real names, details, and contacts provided above.
+`;
 
       const res = await fetch('/api/generate-letter', {
         method: 'POST',
@@ -46,7 +58,7 @@ export default function App() {
           messages: [
             {
               role: 'user',
-              content: `Write a ${tone.toLowerCase()} ${selectedSubtype} letter with the following details:\n${contentString}`,
+              content: prompt,
             },
           ],
         }),
